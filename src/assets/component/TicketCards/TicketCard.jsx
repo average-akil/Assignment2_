@@ -1,6 +1,6 @@
 import React from "react";
 
-const TicketCard = ({ card, setTaskHistory }) => {
+const TicketCard = ({ card, setTaskHistory, selectedCards, setSelectedCards }) => {
   const { id, title, description, name, priority, status, createdAt } = card;
 
  
@@ -37,9 +37,12 @@ const TicketCard = ({ card, setTaskHistory }) => {
     };
   }
 
+  const isSelected = selectedCards.includes(id);
+
   const handleStatusClick = () => {
-    if (status === "open") {
-      setTaskHistory(prev => [...prev, title]);
+    if (status === "open" && !isSelected) {
+      setTaskHistory(prev => [...prev, { id, title }]);
+      setSelectedCards(prev => [...prev, id]);
     }
   };
 
@@ -48,12 +51,12 @@ const TicketCard = ({ card, setTaskHistory }) => {
       <div className="flex items-start justify-between gap-3 mb-2">
         {/* title and stuffs */}
         <h3 className="text-sm text-black">{title}</h3>
-       <button onClick={handleStatusClick}>
+       <button onClick={handleStatusClick} disabled={isSelected} className={isSelected ? "opacity-60 cursor-not-allowed" : ""}>
         <span
-          className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${currentStatus.bg}`}
+          className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${isSelected ? "bg-gray-200 text-gray-600" : currentStatus.bg}`}
         >
-          <span className={`w-2 h-2 rounded-full ${currentStatus.dot}`}></span>
-          {currentStatus.label}
+          <span className={`w-2 h-2 rounded-full ${isSelected ? "bg-gray-400" : currentStatus.dot}`}></span>
+          {isSelected ? "Selected" : currentStatus.label}
         </span></button>
       </div>
       {/* description */}

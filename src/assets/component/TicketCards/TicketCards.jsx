@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TicketCard from './TicketCard';
 
-const TicketCards = ({ setTaskHistory }) => {
+const TicketCards = ({ setTaskHistory, selectedCards, setSelectedCards }) => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -19,6 +19,8 @@ const TicketCards = ({ setTaskHistory }) => {
             key={card.id}
             card={card}
             setTaskHistory={setTaskHistory}
+            selectedCards={selectedCards}
+            setSelectedCards={setSelectedCards}
           />
         ))}
       </div>
