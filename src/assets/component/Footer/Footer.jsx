@@ -66,7 +66,7 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div>
+        <div className=' flex flex-col items-center'>
           <h3 className="text-sm font-semibold mb-4 text-white">
             Social Links
           </h3>
