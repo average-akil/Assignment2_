@@ -1,6 +1,6 @@
 import React from "react";
 
-const TicketCard = ({ card }) => {
+const TicketCard = ({ card, setTaskHistory }) => {
   const { id, title, description, name, priority, status, createdAt } = card;
 
  
@@ -37,17 +37,24 @@ const TicketCard = ({ card }) => {
     };
   }
 
+  const handleStatusClick = () => {
+    if (status === "open") {
+      setTaskHistory(prev => [...prev, title]);
+    }
+  };
+
   return (
     <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm w-96">
       <div className="flex items-start justify-between gap-3 mb-2">
         {/* title and stuffs */}
         <h3 className="text-sm text-black">{title}</h3>
+       <button onClick={handleStatusClick}>
         <span
           className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${currentStatus.bg}`}
         >
           <span className={`w-2 h-2 rounded-full ${currentStatus.dot}`}></span>
           {currentStatus.label}
-        </span>
+        </span></button>
       </div>
       {/* description */}
       <p className="text-sm text-gray-500 text-left line-clamp-2 mb-4">
